@@ -10,7 +10,7 @@ let controlPointsLinesColor = 'rgb(82,186,252)';
 let firstSegmentationPointsColor = 'rgba(35,192,33,1)';
 let firstSegmentationLinesColor = 'rgba(40,218,37,1)';
 let secondSegmentationPointsColor = 'rgb(217,219,31)';
-let secondSegmentationLinesColor = 'rgb(245,234,36)';
+let secondSegmentationLinesColor = 'rgb(226,216,32)';
 let thirdSegmentationPointsColor = 'rgba(208,14,238,1)';
 let bezierCurveColor = 'rgba(0,0,0,1)';
 let legendBorderColor = 'rgba(0,0,0,1)';
@@ -238,6 +238,7 @@ function draw(controlPoints, t, resolution, segmentation) {
 function drawDeCasteljauAlgorithm(controlPoints, t, segmentation) {
     ctx.fillStyle = controlPointsColor;
     ctx.strokeStyle = controlPointsLinesColor;
+    ctx.setLineDash([5, 5]);
     
     // draw control points lines
     for(let i = 0; i < controlPoints.length - 1; i++) {
@@ -246,6 +247,7 @@ function drawDeCasteljauAlgorithm(controlPoints, t, segmentation) {
         ctx.lineTo(controlPoints[i+1].x, controlPoints[i+1].y);
         ctx.stroke();
     }
+    ctx.setLineDash([]);
 
     // draw control points
     controlPoints.forEach(point => {
@@ -268,7 +270,8 @@ function drawBezierCurve(controlPoints, resolution) {
     }
 
     ctx.strokeStyle = bezierCurveColor;
-
+    ctx.lineWidth = 2;
+    
     // draw lines
     for(let i = 0; i < bezierPoints.length - 1; i++) {
         ctx.beginPath();
@@ -276,6 +279,7 @@ function drawBezierCurve(controlPoints, resolution) {
         ctx.lineTo(bezierPoints[i+1].x, bezierPoints[i+1].y);
         ctx.stroke();
     }
+    ctx.lineWidth = 1;
 }
 
 function drawlegend() {
